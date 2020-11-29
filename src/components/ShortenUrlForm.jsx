@@ -25,7 +25,8 @@ const ShortenUrlForm = () => {
             }),
         })
             .then(response => response.json())
-            .then(data => setShortenedUrl(data.link));
+            .then(data => setShortenedUrl(data.link))
+            .then(() => navigator.clipboard.writeText(shortenedUrl));
     }, [value]);
 
     return (
@@ -39,7 +40,7 @@ const ShortenUrlForm = () => {
             {!!shortenedUrl?.length && (
                 <div>
                     {/* Show shortened url --- copied! */}
-                    {shortenedUrl}
+                    {`${shortenedUrl}  --- copied!`}
                 </div>
             )}
         </form>
