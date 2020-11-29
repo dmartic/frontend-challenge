@@ -10,13 +10,14 @@ test('renders App', () => {
 
 test('creates shortened URL', () => {
     render(<App />);
-
     const input = screen.getByPlaceholderText(/Url to shorten/i);
     const submit = screen.getByText(/Shorten and copy URL/i);
-    const copiedText = screen.findByText(/--- copied!/i)
-
-    fireEvent.change(input, {target: {value: "https://www.google.com"}});
+    const copiedText = screen.findByText(/--- copied!/i);
+    fireEvent.change(input, {
+        target: {
+            value: 'https://www.google.com',
+        },
+    });
     fireEvent.click(submit);
-
     expect(copiedText);
-})
+});

@@ -6,6 +6,7 @@
 .App-logo {
   height: 50px;
   pointer-events: none;
+  margin-top: 48px;
 }
 
 input[type=text] {
@@ -17,6 +18,7 @@ input[type=text] {
   border: none;
   background: #f8f9fa;
   border-bottom: 2px solid #69D2AA;
+  width: 300px;
 }
 
 input[type="submit"] {

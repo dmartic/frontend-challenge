@@ -40,10 +40,10 @@ const ShortenUrlForm = () => {
             <input type="submit" value="Shorten and copy URL" />
             {/* TODO: show below only when the url has been shortened and copied */}
             {!!shortenedUrl?.length && (
-                <div>
+                <p>
                     {/* Show shortened url --- copied! */}
-                    {`${shortenedUrl}  --- copied!`}
-                </div>
+                    {`${shortenedUrl} - copied!`}
+                </p>
             )}
         </form>
     );
