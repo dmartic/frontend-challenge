@@ -6,30 +6,27 @@ const ShortenUrlForm = () => {
     const [value, setValue] = useState('');
     const [shortenedUrl, setShortenedUrl] = useState('');
 
-    const request = {
-        method: 'POST',
-        headers: {
-            Authorization: process.env.REACT_APP_BITLY_AUTHORIZATION_TOKEN,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            long_url: value,
-            domain: 'bit.ly',
-            group_guid: 'Ba1bc23dE4F',
-        }),
-    };
-
     const onChange = useCallback((e) => {
         setValue(e.target.value);
-    }, []);
+    }, [value]);
 
     const onSubmit = useCallback((e) => {
         e.preventDefault();
         // TODO: shorten url and copy to clipboard
-        fetch('https://api-ssl.bitly.com/v4/shorten', request).then((response) => {
-            setShortenedUrl(response);
-        });
-    }, []);
+        fetch('https://api-ssl.bitly.com/v4/shorten', {
+            method: 'POST',
+            headers: {
+                Authorization: process.env.REACT_APP_BITLY_AUTHORIZATION_TOKEN,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                long_url: value,
+                domain: 'bit.ly',
+            }),
+        })
+            .then(response => response.json())
+            .then(data => setShortenedUrl(data.link));
+    }, [value]);
 
     return (
         <form onSubmit={onSubmit}>
@@ -39,7 +36,7 @@ const ShortenUrlForm = () => {
             </label>
             <input type="submit" value="Shorten and copy URL" />
             {/* TODO: show below only when the url has been shortened and copied */}
-            {!!shortenedUrl.length && (
+            {!!shortenedUrl?.length && (
                 <div>
                     {/* Show shortened url --- copied! */}
                     {shortenedUrl}
