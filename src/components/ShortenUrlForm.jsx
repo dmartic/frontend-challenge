@@ -25,8 +25,10 @@ const ShortenUrlForm = () => {
             }),
         })
             .then(response => response.json())
-            .then(data => setShortenedUrl(data.link))
-            .then(() => navigator.clipboard.writeText(shortenedUrl));
+            .then(({ link }) => {
+                setShortenedUrl(link);
+                navigator.clipboard.writeText(link);
+            });
     }, [value]);
 
     return (
