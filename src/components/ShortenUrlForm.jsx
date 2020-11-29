@@ -9,7 +9,7 @@ const ShortenUrlForm = () => {
     const request = {
         method: 'POST',
         headers: {
-            Authorization: process.env.BITLY_AUTHORIZATION_TOKEN,
+            Authorization: process.env.REACT_APP_BITLY_AUTHORIZATION_TOKEN,
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
