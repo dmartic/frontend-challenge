@@ -6,6 +6,19 @@ const ShortenUrlForm = () => {
     const [value, setValue] = useState('');
     const [shortenedUrl, setShortenedUrl] = useState('');
 
+    const request = {
+        method: 'POST',
+        headers: {
+            Authorization: process.env.BITLY_AUTHORIZATION_TOKEN,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            long_url: value,
+            domain: 'bit.ly',
+            group_guid: 'Ba1bc23dE4F',
+        }),
+    };
+
     const onChange = useCallback((e) => {
         setValue(e.target.value);
     }, []);
@@ -13,17 +26,7 @@ const ShortenUrlForm = () => {
     const onSubmit = useCallback((e) => {
         e.preventDefault();
         // TODO: shorten url and copy to clipboard
-        fetch('https://api-ssl.bitly.com/v4/shorten', {
-            method: 'POST',
-            headers: {
-                Authorization: process.env.BITLY_AUTORIZATION_TOKEN,
-            },
-            body: {
-                group_guid: 'Ba1bc23dE4F',
-                domain: 'bit.ly',
-                long_url: value,
-            },
-        }).then((response) => {
+        fetch('https://api-ssl.bitly.com/v4/shorten', request).then((response) => {
             setShortenedUrl(response);
         });
     }, []);
